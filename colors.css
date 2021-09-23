@@ -1,0 +1,13 @@
+* {
+    --black: #222222;
+    --background: #fbbc4d;
+}
+
+body {
+    background-color: var(--background);
+}
+
+form *,
+h1 {
+    color: var(--black);
+}

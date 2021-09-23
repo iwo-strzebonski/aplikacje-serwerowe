@@ -1,33 +1,11 @@
-<?php
-// $servername = 'localhost';
-// $sql = 'SELECT login, password FROM `users` WHERE 1';
-// $result = mysqli_query($conn, $sql);
-?>
-
-<?php
-$msg = '';
-
-if (isset($_POST['username']) && !empty($_POST['username']) 
-    && !empty($_POST['password'])) {
-
-    if ($_POST['username'] == 'abc' && 
-        $_POST['password'] == 'abc') {
-
-        $_SESSION['valid'] = true;
-        $_SESSION['timeout'] = time();
-        $_SESSION['username'] = 'abc';
-
-        $msg = 'You have entered valid use name and password';
-    } else {
-        echo 'Wrong username or password';
+<div class='container' id='login' style='display:<?= isset($_SESSION['valid']) && !$_SESSION['valid'] ? "flex" : "none"; ?>'>
+    <?php
+    if (isset($_SESSION['valid']) && !$_SESSION['valid']) {
+        echo '<h4>Nieprawidłowa nazwa użytkownika i/lub hasło</h4>';
     }
-}
-?>
+    ?>
 
-<div class='container' id='login' style='display:none;'>
-    <h4><?php echo $msg; ?></h4>
-
-    <form role='form' method='post' action='<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>' >
+    <form role='form' method='POST' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' >
         <label for='login'>Nazwa użytkownika</label>
         <br />
         <input type='text' name='login' required='' />
@@ -43,7 +21,7 @@ if (isset($_POST['username']) && !empty($_POST['username'])
 
     <span>
         Potrzebujesz utworzyć konto?
-        <button onclick='document.getElementById("login").style.display="none";document.getElementById("register").style.display="block";'>
+        <button class='session-btn register'>
             Zarejestruj się
         </button>
     </span>
