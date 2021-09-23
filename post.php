@@ -1,4 +1,9 @@
 <?php
+ob_start();
+session_start();
+?>
+
+<?php
 // $servername = 'localhost';
 // $sql = 'SELECT login, password FROM `users` WHERE 1';
 // $result = mysqli_query($conn, $sql);

@@ -1,11 +1,8 @@
 <?php
-    ob_start();
-    session_start();
+    include './post.php';
 ?>
 
 <?php
-include './post.php';
-
 $html = file_get_contents('./index.html');
 libxml_use_internal_errors(true);
 $doc = new DOMDocument(); 
