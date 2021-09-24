@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 22 Wrz 2021, 06:29
+-- Czas generowania: 24 Wrz 2021, 19:25
 -- Wersja serwera: 10.4.17-MariaDB
 -- Wersja PHP: 8.0.2
 
@@ -39,7 +39,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `password`, `phone`) VALUES
-(0, 'abc', 0x900150983cd24fb0d6963f7d28e17f72, '123123123');
+(1, 'abc', 0x900150983cd24fb0d6963f7d28e17f72, '123123123');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -49,7 +49,18 @@ INSERT INTO `users` (`id`, `login`, `password`, `phone`) VALUES
 -- Indeksy dla tabeli `users`
 --
 ALTER TABLE `users`
-  ADD UNIQUE KEY `login` (`id`);
+  ADD UNIQUE KEY `login` (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- AUTO_INCREMENT dla zrzuconych tabel
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

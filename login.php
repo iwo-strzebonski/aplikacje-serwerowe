@@ -5,6 +5,8 @@
     }
     ?>
 
+    <img src='./cancel.svg' class='close' />
+
     <form role='form' method='POST' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' >
         <label for='login'>Nazwa użytkownika</label>
         <br />

@@ -1,4 +1,8 @@
-<div class='container' id='register' style='display:none;'>
+<div class='container' id='register' style='display:<?= isset($reg_msg) ? "flex" : "none"; ?>'>
+    <h4><?= isset($reg_msg) ? $reg_msg : ''; ?></h4>
+
+    <img src='./cancel.svg' class='close' />
+
     <form role='form' method='POST' action='<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>' >
         <label for='login'>Nazwa użytkownika</label>
         <br />
