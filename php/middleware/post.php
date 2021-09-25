@@ -1,9 +1,6 @@
 <?php
 ob_start();
 session_start();
-
-// echo md5('abc', true); // 0x900150983cd24fb0d6963f7d28e17f72
-// echo md5('abc', false); // "900150983cd24fb0d6963f7d28e17f72"
 ?>
 
 <?php
@@ -13,8 +10,6 @@ $password = '';
 $db = 'kino';
 
 $conn = mysqli_connect($server, $login, $password, $db);
-// $sql = 'SELECT * FROM `users` WHERE 1';
-// $res = mysqli_query($conn, $sql);
 ?>
 
 <?php // Login
@@ -33,6 +28,7 @@ if (isset($_POST['login']) &&
         foreach ($query as $key => $value) {
             if ($value['exists']) {
                 $_SESSION['valid'] = true;
+                $_SESSION['login'] = $_POST['login'];
                 return;
             }
         }
