@@ -3,7 +3,9 @@
 
     <img src='./img/cancel.svg' class='close' />
 
-    <form role='form' method='POST' action='<?= htmlspecialchars($_SERVER['PHP_SELF']).(isset($_GET['show']) ? $_GET['show'] : ''); ?>' >
+    <?php include './php/form-redirect.php' ?>
+
+    <form role='form' method='POST' action='<?= htmlspecialchars($href) ?>' >
         <?php include './html/register-form.html'; ?>
     </form>
 

@@ -1,9 +1,9 @@
-input[type=radio] {
+input[type='checkbox'] {
     visibility: hidden;
     position: absolute;
 }
 
-input[type=radio] + label::before {
+input[type='checkbox'] + label::before {
     height: 2rem;
     width: 2rem;
     margin-right: 2px;

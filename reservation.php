@@ -9,20 +9,7 @@
 <?php include './html/head.html' ?>
 
 <body>
-    <header>
-        <h1>Kino Pod Trzema Kuflami</h1>
-        <div id='sess-btn-cont'>
-            <?php
-            if (isset($_SESSION['valid']) && $_SESSION['valid']) {
-                echo '<span>Witaj '.$_SESSION['login'].'!</span>';
-                echo '<button class="session-btn logout">Wyloguj się</button>';
-            } else {
-                echo '<button class="session-btn register">Zarejestruj się</button>';
-                echo '<button class="session-btn login">Zaloguj się</button>';
-            }
-            ?>
-        </div>
-    </header>
+    <?php include './php/header.php' ?>
 
     <main>
         <?php
@@ -31,11 +18,34 @@
             include './php/register.php';
         }
         ?>
+        <div id='show'>
+            <?php
+            $sql = "SELECT `title`, `poster`, `description` FROM `shows` WHERE `title` LIKE '".addslashes($_GET['show'])."'";
+            $query = mysqli_query($conn, $sql);
+
+            foreach ($query as $row => $record) {
+                $title = $record['title'];
+                $poster = $record['poster'];
+                $desc = $record['description'];
+                break;
+            }
+            ?>
+
+            <h2><?= $title ?></h2>
+
+            <img src='./img/posters/<?= $poster ?>' />
+
+            <div id='description'>
+                <?= $desc ?>
+            </div>
+        </div>
 
         <div id='reservation'>
-            <form role='form' method='POST' action='<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+            <h3>Wybierz miejsce:</h3>
+
+            <form role='form' method='POST' action='<?= htmlspecialchars(str_replace('reservation','php/middleware/post', $_SERVER['PHP_SELF'])) ?>'>
                 <?php
-                $sql = "SELECT `seat` FROM `seats` WHERE `title` LIKE '".$_GET['show']."'";
+                $sql = "SELECT `seat` FROM `seats` WHERE `title` LIKE '".addslashes($_GET['show'])."'";
 
                 $query = mysqli_query($conn, $sql);
                 $reserved = array();
@@ -44,22 +54,22 @@
                     array_push($reserved, $record['seat']);
                 }
 
-                // foreach ($reserved as $key => $value) {
-                //     echo $key.' - '.$value.'<br>';
-                // }
-
                 for ($r = 1; $r <= 15; $r++) { 
                     for ($c = 1; $c <= 20; $c++) {
                         if (in_array($r.'-'.$c, $reserved)) {
-                            echo '<input type="radio" name="seat" class="disabled" disabled="" />';
+                            echo '<input type="checkbox" class="disabled" disabled="" />';
                         } else {
-                            echo '<input type="radio" name="seat" id="'.$r.'-'.$c.'" value="'.$r.'-'.$c.'" />';
+                            echo '<input type="checkbox" name="seat[]" id="'.$r.'-'.$c.'" value="'.$r.'-'.$c.'" />';
                         }
                         echo '<label for="'.$r.'-'.$c.'" ></label>';
                     }
                     echo '<br>';
                 }
                 ?>
+
+                <input type='hidden' name='show' value="<?= $_GET['show'] ?>" />
+                <input type='reset' value='Wyczyść' />
+                <input type='submit' value='Kup bilet' />
             </form>
         </div>
     </main>

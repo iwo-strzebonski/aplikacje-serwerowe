@@ -15,7 +15,15 @@ header {
 }
 
 main {
+    display: flex;
     flex: 1;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#home {
+    justify-content: space-around;
 }
 
 footer {
@@ -27,4 +35,3 @@ footer {
     align-items: center;
     flex-direction: column;
 }
-

@@ -44,22 +44,49 @@ if (isset($_POST['login']) &&
     !empty($_POST['password'])) {
         $sql = "SELECT 1 AS `exists`\n"
             . "FROM `users`\n"
-            . "WHERE\n"
+            . "WHERE EXISTS (SELECT * FROM `users` WHERE\n"
             . "STRCMP(`login`,'".$_POST['login']."') LIKE 0 OR\n"
-            . "STRCMP(`phone`,".$_POST['phone'].") LIKE 0";
+            . "STRCMP(`phone`,".$_POST['phone'].") LIKE 0)";
 
         $query = mysqli_query($conn, $sql);
         
-        foreach ($query as $key => $value) {
-            if ($value['exists']) {
+        foreach ($query as $row => $record) {
+            if ($record['exists']) {
                 $reg_msg = 'Użytkownik o podanych danych już istnieje w systemie!';
                 return;
             }
         }
 
-        $reg = "INSERT INTO `users` (`id`, `login`, `password`, `phone`)"
-            . "VALUES (NULL,'" . $_POST['login'] . "',0x" . md5($_POST['password'], false) . "," . $_POST['phone'] . ")";
+        $sql = "INSERT INTO `users` (`id`, `login`, `password`, `phone`)"
+            . "VALUES (NULL,'".$_POST['login'] . "',0x".md5($_POST['password'], false).",".$_POST['phone'].")";
 
-        mysqli_query($conn, $reg);
+        mysqli_query($conn, $sql);
+}
+?>
+
+<?php // Buy ticket
+if (str_contains($_SERVER['PHP_SELF'], 'post')) {
+    if (isset($_SESSION['valid']) &&
+        isset($_POST['show']) &&
+        isset($_POST['seat']) &&
+        $_SESSION['valid']) {
+            foreach ($_POST['seat'] as $i => $seat) {
+                $sql = "INSERT INTO `seats` (`id`, `title`, `login`, `seat`)"
+                    . "VALUES (NULL,'".addslashes($_POST['show'])."','".$_SESSION['login']."','".$seat."')";
+
+                mysqli_query($conn, $sql);
+            }
+
+            header('Refresh: 0; URL="../../index.php"');
+    } elseif (!isset($_SESSION['valid']) || (isset($_SESSION['valid']) && !$_SESSION['valid'])) {
+        $_SESSION['msg'] = 'Żeby móc kupić bilet, musisz się najpierw zalogować!';
+
+        header('Refresh: 0; URL="'.$_SERVER['HTTP_REFERER'].'"');
+    } else {
+        echo '<h1>Ups, coś poszło nie tak!</h1>';
+        echo '<h2>Spróbuj ponownie</h2>';
+
+        header('Refresh: 2; URL="'.str_replace('php/middleware/post', 'index', $_SERVER['PHP_SELF']).'"');
+    }
 }
 ?>

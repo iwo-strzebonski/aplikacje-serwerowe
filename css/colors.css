@@ -18,26 +18,29 @@ body {
     background-image: url('../img/trzy-kufle-session.webp');
 }
 
-.show {
+.show,
+#show,
+#reservation {
     border-color: var(--black);
+    background-color: var(--dark-yellow);
 }
 
-input[type=radio] + label::before {
+input[type='checkbox'] + label::before {
     color: var(--black);
     background-color: currentcolor;
     border-color: currentcolor;
 }
 
-input[type=radio]:checked + label::before {
+input[type='checkbox']:checked + label::before {
     color: var(--green);
 }
 
-input[type=radio].disabled + label::before {
+input[type='checkbox'].disabled + label::before {
     color: var(--red);
 }
 
 form *,
-h1 {
+h1 * {
     color: var(--black);
 }
 
@@ -45,9 +48,4 @@ h1 {
 .show:active, 
 .show:visited {
     color: var(--light);
-}
-
-.show,
-#reservation {
-    background-color: var(--dark-yellow);
 }
