@@ -54,7 +54,14 @@
                     array_push($reserved, $record['seat']);
                 }
 
-                for ($r = 1; $r <= 15; $r++) { 
+                echo '<span><b class="column"></b>';
+                for ($c = 1; $c <= 20; $c++) {
+                    echo '<b class="column">'.$c.'</b>';
+                }
+                echo '</span><br>';
+
+                for ($r = 1; $r <= 15; $r++) {
+                    echo '<span><b class="row">'.$r.'</b>';
                     for ($c = 1; $c <= 20; $c++) {
                         if (in_array($r.'-'.$c, $reserved)) {
                             echo '<input type="checkbox" class="disabled" disabled="" />';
@@ -63,7 +70,7 @@
                         }
                         echo '<label for="'.$r.'-'.$c.'" ></label>';
                     }
-                    echo '<br>';
+                    echo '</span><br>';
                 }
                 ?>
 
