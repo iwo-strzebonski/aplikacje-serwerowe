@@ -58,16 +58,18 @@
                                 <td class="px-4 py-3">{item.surname}</td>
                                 <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
                                 <td class="px-4 py-3"><button on:click={
-                                    (e) => {
-                                        // const xhr = new XMLHttpRequest();
-                                        // xhr.open("POST", yourUrl, true);
-                                        // xhr.setRequestHeader('Content-Type', 'application/json');
-                                        // xhr.send(JSON.stringify({
-                                        //     value: value
-                                        // }))
-                                        location.reload()
+                                    async function(e) {
+                                        const path = location.origin + location.pathname
+                                        const URL = `${path}backend/delete.php`
+                                        
+                                        await fetch(URL, {
+                                            method: 'POST',
+                                            body: JSON.stringify({ id: item.id })
+                                        })
+
+                                        const json = await res.json()
                                     }
-                                }>Usuń</button></td>
+                                }>Delete</button></td>
                             </tr>
                         {/each}
                     {:else}
@@ -78,16 +80,18 @@
                                 <td class="px-4 py-3">{item.surname}</td>
                                 <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
                                 <td class="px-4 py-3"><button on:click={
-                                    (e) => {
-                                        // const xhr = new XMLHttpRequest();
-                                        // xhr.open("POST", yourUrl, true);
-                                        // xhr.setRequestHeader('Content-Type', 'application/json');
-                                        // xhr.send(JSON.stringify({
-                                        //     value: value
-                                        // }))
-                                        location.reload()
+                                    async function(e) {
+                                        const path = location.origin + location.pathname
+                                        const URL = `${path}backend/delete.php`
+                                        
+                                        await fetch(URL, {
+                                            method: 'POST',
+                                            body: JSON.stringify({ id: item.id })
+                                        })
+
+                                        const json = await res.json()
                                     }
-                                }>Usuń</button></td>
+                                }>Delete</button></td>
                             </tr>
                         {/each}
                     {/if}

@@ -53,41 +53,61 @@
                     {#if res2 == undefined}
                         {#each res as item}
                             <tr>
-                                <td class="px-4 py-3"><input name='id' value={item.id} /></td>
-                                <td class="px-4 py-3"><input name='id' value={item.name} /></td>
-                                <td class="px-4 py-3"><input name='id' value={item.surname} /></td>
-                                <td class="px-4 py-3"><input name='id' value={item.age} /></td>
+                                <td class="px-4 py-3">{item.id}</td>
+                                <td class="px-4 py-3"><input type='text' name='name' size='16' value={item.name} /></td>
+                                <td class="px-4 py-3"><input type='text' name='surname' size='16' value={item.surname} /></td>
+                                <td class="px-4 py-3"><input type='number' name='age' size='3' value={item.age} /></td>
                                 <td class="px-4 py-3"><button on:click={
-                                    (e) => {
-                                        // const xhr = new XMLHttpRequest();
-                                        // xhr.open("POST", yourUrl, true);
-                                        // xhr.setRequestHeader('Content-Type', 'application/json');
-                                        // xhr.send(JSON.stringify({
-                                        //     value: value
-                                        // }))
-                                        location.reload()
+                                    async function(e) {
+                                        const path = location.origin + location.pathname
+                                        const URL = `${path}backend/update.php`
+                                        let name = e.target.parentNode.parentNode.children[1].children[0].value
+                                        let surname = e.target.parentNode.parentNode.children[2].children[0].value
+                                        let age = e.target.parentNode.parentNode.children[3].children[0].value
+                                        
+                                        await fetch(URL, {
+                                            method: 'POST',
+                                            body: JSON.stringify({
+                                                id: item.id,
+                                                name: name,
+                                                surname: surname,
+                                                age: age
+                                            })
+                                        })
+
+                                        const json = await res.json()
                                     }
-                                }>Zaktualizuj</button></td>
+                                }>Update</button></td>
                             </tr>
                         {/each}
                     {:else}
                         {#each res2 as item}
                             <tr>
-                                <td class="px-4 py-3"><input name='id' value={item.id} /></td>
-                                <td class="px-4 py-3"><input name='id' value={item.name} /></td>
-                                <td class="px-4 py-3"><input name='id' value={item.surname} /></td>
-                                <td class="px-4 py-3"><input name='id' value={item.age} /></td>
+                                <td class="px-4 py-3">{item.id}</td>
+                                <td class="px-4 py-3"><input type='text' name='name' size='16' value={item.name} /></td>
+                                <td class="px-4 py-3"><input type='text' name='surname' size='16' value={item.surname} /></td>
+                                <td class="px-4 py-3"><input type='number' name='age' size='3' value={item.age} /></td>
                                 <td class="px-4 py-3"><button on:click={
-                                    (e) => {
-                                        // const xhr = new XMLHttpRequest();
-                                        // xhr.open("POST", yourUrl, true);
-                                        // xhr.setRequestHeader('Content-Type', 'application/json');
-                                        // xhr.send(JSON.stringify({
-                                        //     value: value
-                                        // }))
-                                        location.reload()
+                                    async function(e) {
+                                        const path = location.origin + location.pathname
+                                        const URL = `${path}backend/update.php`
+                                        let name = e.target.parentNode.parentNode.children[1].children[0].value
+                                        let surname = e.target.parentNode.parentNode.children[2].children[0].value
+                                        let age = e.target.parentNode.parentNode.children[3].children[0].value
+                                        
+                                        let res = await fetch(URL, {
+                                            method: 'POST',
+                                            body: JSON.stringify({
+                                                id: item.id,
+                                                name: name,
+                                                surname: surname,
+                                                age: age
+                                            })
+                                        })
+
+                                        const json = await res.json()
                                     }
-                                }>Zaktualizuj</button></td>
+                                }>Update</button></td>
                             </tr>
                         {/each}
                     {/if}

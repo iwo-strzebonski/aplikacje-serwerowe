@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM person";
+$sql = "SELECT * FROM `person`";
 
 $result = mysqli_query($conn, $sql);
 
