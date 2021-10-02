@@ -1,6 +1,7 @@
 <script>
     async function getItems() {
-        const URL = `${location.href}backend/display.php`
+        const path = location.origin + location.pathname
+        const URL = `${path}backend/display.php`
         let res = await fetch(URL, {
             method: "GET",
             headers: {
@@ -42,25 +43,10 @@
                 <table class="table-auto w-full text-left whitespace-no-wrap">
                     <thead>
                         <tr>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl"
-                                >ID</th
-                            >
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"
-                                >Name</th
-                            >
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"
-                                >Surname</th
-                            >
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"
-                                >Age</th
-                            >
-                            <th
-                                class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"
-                            />
+                            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">ID</th>
+                            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Name</th>
+                            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Surname</th>
+                            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Age</th>
                         </tr>
                     </thead>
                     <!-- jeśli nic nie było jeszcze filtrowane -->
@@ -70,9 +56,7 @@
                                 <td class="px-4 py-3">{item.id}</td>
                                 <td class="px-4 py-3">{item.name}</td>
                                 <td class="px-4 py-3">{item.surname}</td>
-                                <td class="px-4 py-3 text-lg text-gray-900"
-                                    >{item.age}</td
-                                >
+                                <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
                             </tr>
                         {/each}
                     {:else}
@@ -81,9 +65,7 @@
                                 <td class="px-4 py-3">{item.id}</td>
                                 <td class="px-4 py-3">{item.name}</td>
                                 <td class="px-4 py-3">{item.surname}</td>
-                                <td class="px-4 py-3 text-lg text-gray-900"
-                                    >{item.age}</td
-                                >
+                                <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
                             </tr>
                         {/each}
                     {/if}
@@ -91,12 +73,6 @@
             {/await}
 
             <tbody />
-        </div>
-        <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-            <button
-                class="flex ml-auto text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded"
-                >Button</button
-            >
         </div>
     </div>
 </section>
