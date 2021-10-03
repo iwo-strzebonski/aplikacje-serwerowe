@@ -12,10 +12,9 @@
         return await res.json()
     }
 
-    let res2;
+    let res2
 
     let promise = getItems()
-    console.log(promise)
 </script>
 
 <section class="text-gray-600 body-font">
@@ -50,55 +49,57 @@
                             <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">Action</th>
                         </tr>
                     </thead>
-                    {#if res2 == undefined}
-                        {#each res as item}
-                            <tr>
-                                <td class="px-4 py-3">{item.id}</td>
-                                <td class="px-4 py-3">{item.name}</td>
-                                <td class="px-4 py-3">{item.surname}</td>
-                                <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
-                                <td class="px-4 py-3"><button on:click={
-                                    async function(e) {
-                                        const path = location.origin + location.pathname
-                                        const URL = `${path}backend/delete.php`
-                                        
-                                        await fetch(URL, {
-                                            method: 'POST',
-                                            body: JSON.stringify({ id: item.id })
-                                        })
+                    <tbody>
+                        {#if res2 == undefined}
+                            {#each res as item}
+                                <tr>
+                                    <td class="px-4 py-3">{item.id}</td>
+                                    <td class="px-4 py-3">{item.name}</td>
+                                    <td class="px-4 py-3">{item.surname}</td>
+                                    <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
+                                    <td class="px-4 py-3"><button on:click={
+                                        async function(e) {
+                                            const path = location.origin + location.pathname
+                                            const URL = `${path}backend/delete.php`
+                                            
+                                            await fetch(URL, {
+                                                method: 'POST',
+                                                body: JSON.stringify({ id: item.id })
+                                            })
 
-                                        const json = await res.json()
-                                    }
-                                }>Delete</button></td>
-                            </tr>
-                        {/each}
-                    {:else}
-                        {#each res2 as item}
-                            <tr>
-                                <td class="px-4 py-3">{item.id}</td>
-                                <td class="px-4 py-3">{item.name}</td>
-                                <td class="px-4 py-3">{item.surname}</td>
-                                <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
-                                <td class="px-4 py-3"><button on:click={
-                                    async function(e) {
-                                        const path = location.origin + location.pathname
-                                        const URL = `${path}backend/delete.php`
-                                        
-                                        await fetch(URL, {
-                                            method: 'POST',
-                                            body: JSON.stringify({ id: item.id })
-                                        })
+                                            await res.json()
+                                            location.reload()
+                                        }
+                                    }>Delete</button></td>
+                                </tr>
+                            {/each}
+                        {:else}
+                            {#each res2 as item}
+                                <tr>
+                                    <td class="px-4 py-3">{item.id}</td>
+                                    <td class="px-4 py-3">{item.name}</td>
+                                    <td class="px-4 py-3">{item.surname}</td>
+                                    <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
+                                    <td class="px-4 py-3"><button on:click={
+                                        async function(e) {
+                                            const path = location.origin + location.pathname
+                                            const URL = `${path}backend/delete.php`
+                                            
+                                            await fetch(URL, {
+                                                method: 'POST',
+                                                body: JSON.stringify({ id: item.id })
+                                            })
 
-                                        const json = await res.json()
-                                    }
-                                }>Delete</button></td>
-                            </tr>
-                        {/each}
-                    {/if}
+                                            await res.json()
+                                            location.reload()
+                                        }
+                                    }>Delete</button></td>
+                                </tr>
+                            {/each}
+                        {/if}
+                    </tbody>
                 </table>
             {/await}
-
-            <tbody />
         </div>
     </div>
 </section>

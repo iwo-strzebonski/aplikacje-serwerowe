@@ -12,10 +12,9 @@
         return await res.json()
     }
 
-    let res2;
+    let res2
 
     let promise = getItems()
-    console.log(promise)
 </script>
 
 <section class="text-gray-600 body-font">
@@ -50,71 +49,73 @@
                             <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">Action</th>
                         </tr>
                     </thead>
-                    {#if res2 == undefined}
-                        {#each res as item}
-                            <tr>
-                                <td class="px-4 py-3">{item.id}</td>
-                                <td class="px-4 py-3"><input type='text' name='name' size='16' value={item.name} /></td>
-                                <td class="px-4 py-3"><input type='text' name='surname' size='16' value={item.surname} /></td>
-                                <td class="px-4 py-3"><input type='number' name='age' size='3' value={item.age} /></td>
-                                <td class="px-4 py-3"><button on:click={
-                                    async function(e) {
-                                        const path = location.origin + location.pathname
-                                        const URL = `${path}backend/update.php`
-                                        let name = e.target.parentNode.parentNode.children[1].children[0].value
-                                        let surname = e.target.parentNode.parentNode.children[2].children[0].value
-                                        let age = e.target.parentNode.parentNode.children[3].children[0].value
-                                        
-                                        await fetch(URL, {
-                                            method: 'POST',
-                                            body: JSON.stringify({
-                                                id: item.id,
-                                                name: name,
-                                                surname: surname,
-                                                age: age
+                    <tbody>
+                        {#if res2 == undefined}
+                            {#each res as item}
+                                <tr>
+                                    <td class="px-4 py-3">{item.id}</td>
+                                    <td class="px-4 py-3"><input type='text' name='name' size='16' value={item.name} /></td>
+                                    <td class="px-4 py-3"><input type='text' name='surname' size='16' value={item.surname} /></td>
+                                    <td class="px-4 py-3"><input type='number' name='age' size='3' value={item.age} /></td>
+                                    <td class="px-4 py-3"><button on:click={
+                                        async function(e) {
+                                            const path = location.origin + location.pathname
+                                            const URL = `${path}backend/update.php`
+                                            let name = e.target.parentNode.parentNode.children[1].children[0].value
+                                            let surname = e.target.parentNode.parentNode.children[2].children[0].value
+                                            let age = e.target.parentNode.parentNode.children[3].children[0].value
+                                            
+                                            await fetch(URL, {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                    id: item.id,
+                                                    name: name,
+                                                    surname: surname,
+                                                    age: age
+                                                })
                                             })
-                                        })
 
-                                        const json = await res.json()
-                                    }
-                                }>Update</button></td>
-                            </tr>
-                        {/each}
-                    {:else}
-                        {#each res2 as item}
-                            <tr>
-                                <td class="px-4 py-3">{item.id}</td>
-                                <td class="px-4 py-3"><input type='text' name='name' size='16' value={item.name} /></td>
-                                <td class="px-4 py-3"><input type='text' name='surname' size='16' value={item.surname} /></td>
-                                <td class="px-4 py-3"><input type='number' name='age' size='3' value={item.age} /></td>
-                                <td class="px-4 py-3"><button on:click={
-                                    async function(e) {
-                                        const path = location.origin + location.pathname
-                                        const URL = `${path}backend/update.php`
-                                        let name = e.target.parentNode.parentNode.children[1].children[0].value
-                                        let surname = e.target.parentNode.parentNode.children[2].children[0].value
-                                        let age = e.target.parentNode.parentNode.children[3].children[0].value
-                                        
-                                        let res = await fetch(URL, {
-                                            method: 'POST',
-                                            body: JSON.stringify({
-                                                id: item.id,
-                                                name: name,
-                                                surname: surname,
-                                                age: age
+                                            await res.json()
+                                            location.reload()
+                                        }
+                                    }>Update</button></td>
+                                </tr>
+                            {/each}
+                        {:else}
+                            {#each res2 as item}
+                                <tr>
+                                    <td class="px-4 py-3">{item.id}</td>
+                                    <td class="px-4 py-3"><input type='text' name='name' size='16' value={item.name} /></td>
+                                    <td class="px-4 py-3"><input type='text' name='surname' size='16' value={item.surname} /></td>
+                                    <td class="px-4 py-3"><input type='number' name='age' size='3' value={item.age} /></td>
+                                    <td class="px-4 py-3"><button on:click={
+                                        async function(e) {
+                                            const path = location.origin + location.pathname
+                                            const URL = `${path}backend/update.php`
+                                            let name = e.target.parentNode.parentNode.children[1].children[0].value
+                                            let surname = e.target.parentNode.parentNode.children[2].children[0].value
+                                            let age = e.target.parentNode.parentNode.children[3].children[0].value
+                                            
+                                            let res = await fetch(URL, {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                    id: item.id,
+                                                    name: name,
+                                                    surname: surname,
+                                                    age: age
+                                                })
                                             })
-                                        })
 
-                                        const json = await res.json()
-                                    }
-                                }>Update</button></td>
-                            </tr>
-                        {/each}
-                    {/if}
+                                            await res.json()
+                                            location.reload()
+                                        }
+                                    }>Update</button></td>
+                                </tr>
+                            {/each}
+                        {/if}
+                    </tbody>
                 </table>
             {/await}
-
-            <tbody />
         </div>
     </div>
 </section>

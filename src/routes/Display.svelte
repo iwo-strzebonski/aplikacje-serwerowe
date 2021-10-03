@@ -12,10 +12,9 @@
         return await res.json()
     }
 
-    let res2;
+    let res2
 
     let promise = getItems()
-    console.log(promise)
 </script>
 
 <section class="text-gray-600 body-font">
@@ -50,29 +49,29 @@
                         </tr>
                     </thead>
                     <!-- jeśli nic nie było jeszcze filtrowane -->
-                    {#if res2 == undefined}
-                        {#each res as item}
-                            <tr>
-                                <td class="px-4 py-3">{item.id}</td>
-                                <td class="px-4 py-3">{item.name}</td>
-                                <td class="px-4 py-3">{item.surname}</td>
-                                <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
-                            </tr>
-                        {/each}
-                    {:else}
-                        {#each res2 as item}
-                            <tr>
-                                <td class="px-4 py-3">{item.id}</td>
-                                <td class="px-4 py-3">{item.name}</td>
-                                <td class="px-4 py-3">{item.surname}</td>
-                                <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
-                            </tr>
-                        {/each}
-                    {/if}
+                    <tbody>
+                        {#if res2 == undefined}
+                            {#each res as item}
+                                <tr>
+                                    <td class="px-4 py-3">{item.id}</td>
+                                    <td class="px-4 py-3">{item.name}</td>
+                                    <td class="px-4 py-3">{item.surname}</td>
+                                    <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
+                                </tr>
+                            {/each}
+                        {:else}
+                            {#each res2 as item}
+                                <tr>
+                                    <td class="px-4 py-3">{item.id}</td>
+                                    <td class="px-4 py-3">{item.name}</td>
+                                    <td class="px-4 py-3">{item.surname}</td>
+                                    <td class="px-4 py-3 text-lg text-gray-900">{item.age}</td>
+                                </tr>
+                            {/each}
+                        {/if}
+                    </tbody>
                 </table>
             {/await}
-
-            <tbody />
         </div>
     </div>
 </section>
