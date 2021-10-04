@@ -1,0 +1,51 @@
+* {
+    --black: #222222;
+    --white: #fefefe;
+    --gray: #909090;
+    --red: #ff6600;
+    --green: #90ee90;
+    --light: #fff4c7;
+    --yellow: #fbbc4d;
+    --dark-yellow: #d89a3d;
+}
+
+body {
+    background-image: url('../img/trzy-kufle-bg.png');
+    background-color: var(--yellow);
+}
+
+.container {
+    background-image: url('../img/trzy-kufle-session.webp');
+}
+
+.show,
+#show,
+#reservation {
+    border-color: var(--black);
+    background-color: var(--dark-yellow);
+}
+
+input[type='checkbox'] + label::before {
+    color: var(--black);
+    background-color: currentcolor;
+    border-color: currentcolor;
+}
+
+input[type='checkbox']:checked + label::before {
+    color: var(--green);
+}
+
+input[type='checkbox'].disabled + label::before {
+    color: var(--red);
+}
+
+form *,
+h1 * {
+    color: var(--black);
+}
+
+.show,
+.show:active, 
+.show:visited {
+    color: var(--light);
+}

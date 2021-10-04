@@ -1,0 +1,130 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background-position-y: -150px;
+}
+
+body,
+.container {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container,
+.close {
+    position: absolute;
+}
+
+#sess-btn-cont button,
+.container form,
+.show,
+#reservation,
+#show {
+    height: max-content;
+}
+
+h1 {
+    margin-left: 1.5rem;
+}
+
+#sess-btn-cont {
+    padding-right: 1.5rem;
+}
+
+#sess-btn-cont button {
+    margin: 0.25rem;
+}
+
+footer {
+    height: 2rem;
+}
+
+.container {
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container form {
+    padding-top: 2rem;
+}
+
+.container form * {
+    margin: 0.25rem;
+}
+
+.close,
+button,
+input[type='submit'],
+input[type='checkbox'] + label::before {
+    cursor: pointer;
+}
+
+input[type='checkbox'].disabled + label::before {
+    cursor: not-allowed;
+}
+
+.close {
+    right: 1rem;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.show,
+#show,
+#reservation {
+    margin: 0 1rem;
+    border: 0.25rem dotted;
+}
+
+.show {
+    display: block;
+    padding: 0.5rem;
+    width: 13rem;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.57, 0.01, 0.25, 1.1);
+    transition-delay: 0s;
+}
+
+.show:hover {
+    transform: scale(1.1);
+}
+
+#show {
+    width: 26rem;
+}
+
+.show img,
+#show img {
+    width: 11rem;
+}
+
+#show,
+#reservation {
+    padding: 0.5rem;
+}
+
+#reservation span {
+    clear: both;
+}
+
+#reservation span * {
+    float: left;
+}
+
+.row,
+.column {
+    display: block;
+    width: 2.125rem;
+    height: 2.125rem;
+    line-height: 2.125rem;
+}

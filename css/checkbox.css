@@ -1,0 +1,15 @@
+input[type='checkbox'] {
+    visibility: hidden;
+    position: absolute;
+}
+
+input[type='checkbox'] + label::before {
+    box-sizing: border-box;
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.125rem;
+    content: ' ';
+    display: inline-block;
+    vertical-align: baseline;
+    border: 1px solid;
+}
