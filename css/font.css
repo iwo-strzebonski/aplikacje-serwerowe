@@ -30,7 +30,8 @@ input[type='reset'],
     font-weight: normal !important;
 }
 
-.show {
+.show,
+#show h2 * {
     text-decoration: underline wavy;
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 25 Wrz 2021, 21:36
+-- Czas generowania: 08 Paź 2021, 22:06
 -- Wersja serwera: 10.4.17-MariaDB
 -- Wersja PHP: 8.0.2
 
@@ -18,8 +18,36 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `kino`
+-- Baza danych: `istrzebonski`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `dates`
+--
+
+CREATE TABLE `dates` (
+  `id` int(11) NOT NULL,
+  `show_dt` datetime NOT NULL,
+  `title` varchar(50) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `dates`
+--
+
+INSERT INTO `dates` (`id`, `show_dt`, `title`) VALUES
+(1, '2021-10-11 12:00:00', 'Człowiek z blizną'),
+(5, '2021-10-11 08:45:00', 'Fate/Stay night: Heaven\'s Feel III. spring song'),
+(6, '2021-10-10 15:00:00', 'Człowiek z blizną'),
+(14, '2021-10-12 08:45:00', 'Smoleńsk'),
+(15, '2021-10-12 11:00:00', 'Smoleńsk'),
+(16, '2021-10-12 13:15:00', 'Smoleńsk'),
+(17, '2021-10-12 15:30:00', 'Smoleńsk'),
+(18, '2021-10-12 17:45:00', 'Smoleńsk'),
+(19, '2021-10-12 20:00:00', 'Smoleńsk'),
+(20, '2021-10-10 08:45:00', 'Gwiezdne wojny: Część IV - Nowa nadzieja');
 
 -- --------------------------------------------------------
 
@@ -31,26 +59,18 @@ CREATE TABLE `seats` (
   `id` int(11) NOT NULL,
   `title` varchar(50) COLLATE utf8_polish_ci NOT NULL,
   `login` varchar(12) COLLATE utf8_polish_ci NOT NULL,
-  `seat` varchar(5) COLLATE utf8_polish_ci NOT NULL
+  `seat` varchar(5) COLLATE utf8_polish_ci NOT NULL,
+  `show_dt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `seats`
 --
 
-INSERT INTO `seats` (`id`, `title`, `login`, `seat`) VALUES
-(1, 'Gwiezdne wojny: Część IV - Nowa nadzieja', 'abc', '1-1'),
-(5, 'Gwiezdne wojny: Część IV - Nowa nadzieja', 'abc', '9-7'),
-(6, 'Gwiezdne wojny: Część IV - Nowa nadzieja', 'abc', '9-8'),
-(8, 'Gwiezdne wojny: Część IV - Nowa nadzieja', 'abc', '10-8'),
-(11, 'Fate/Stay night: Heaven\'s Feel III. spring song', 'abc', '13-7'),
-(26, 'Fate/Stay night: Heaven\'s Feel III. spring song', 'abc', '1-1'),
-(27, 'Fate/Stay night: Heaven\'s Feel III. spring song', 'abc', '1-2'),
-(28, 'Fate/Stay night: Heaven\'s Feel III. spring song', 'abc', '2-1'),
-(29, 'Fate/Stay night: Heaven\'s Feel III. spring song', 'abc', '2-2'),
-(30, 'Człowiek z blizną', 'abc', '4-10'),
-(31, 'Człowiek z blizną', 'abc', '7-9'),
-(32, 'Smoleńsk', 'abc', '3-4');
+INSERT INTO `seats` (`id`, `title`, `login`, `seat`, `show_dt`) VALUES
+(34, 'Człowiek z blizną', 'abc', '1-1', '2021-10-10 15:00:00'),
+(35, 'Człowiek z blizną', 'abc', '1-2', '2021-10-10 15:00:00'),
+(36, 'Człowiek z blizną', 'abc', '2-2', '2021-10-10 15:00:00');
 
 -- --------------------------------------------------------
 
@@ -101,12 +121,21 @@ INSERT INTO `users` (`id`, `login`, `password`, `phone`) VALUES
 --
 
 --
+-- Indeksy dla tabeli `dates`
+--
+ALTER TABLE `dates`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `title` (`title`),
+  ADD KEY `show_dt` (`show_dt`);
+
+--
 -- Indeksy dla tabeli `seats`
 --
 ALTER TABLE `seats`
   ADD PRIMARY KEY (`id`),
   ADD KEY `title` (`title`) USING BTREE,
-  ADD KEY `login` (`login`);
+  ADD KEY `login` (`login`),
+  ADD KEY `show_dt` (`show_dt`);
 
 --
 -- Indeksy dla tabeli `shows`
@@ -127,10 +156,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT dla tabeli `dates`
+--
+ALTER TABLE `dates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT dla tabeli `seats`
 --
 ALTER TABLE `seats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT dla tabeli `shows`
@@ -149,11 +184,18 @@ ALTER TABLE `users`
 --
 
 --
+-- Ograniczenia dla tabeli `dates`
+--
+ALTER TABLE `dates`
+  ADD CONSTRAINT `dates_ibfk_1` FOREIGN KEY (`title`) REFERENCES `shows` (`title`);
+
+--
 -- Ograniczenia dla tabeli `seats`
 --
 ALTER TABLE `seats`
   ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`login`) REFERENCES `users` (`login`),
-  ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`title`) REFERENCES `shows` (`title`);
+  ADD CONSTRAINT `seats_ibfk_2` FOREIGN KEY (`title`) REFERENCES `shows` (`title`),
+  ADD CONSTRAINT `seats_ibfk_3` FOREIGN KEY (`show_dt`) REFERENCES `dates` (`show_dt`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

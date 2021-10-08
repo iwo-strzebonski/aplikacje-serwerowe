@@ -1,7 +1,5 @@
 <?php
-    include './php/middleware/post.php';
-
-    libxml_use_internal_errors(true);
+include './php/middleware/post.php';
 ?>
 
 <!DOCTYPE html>

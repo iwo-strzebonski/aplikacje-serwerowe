@@ -128,3 +128,11 @@ input[type='checkbox'].disabled + label::before {
     height: 2.125rem;
     line-height: 2.125rem;
 }
+
+h4 {
+    margin-bottom: 0;
+}
+
+.hours {
+    margin: 0.25rem;
+}

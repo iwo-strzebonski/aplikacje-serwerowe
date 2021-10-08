@@ -1,17 +1,6 @@
 <?php
-ob_start();
-session_start();
-?>
-
-<?php
-$server = 'localhost';
-$login = 'root';
-$password = '';
-$db = 'istrzebonski';
-
-$conn = mysqli_connect($server, $login, $password, $db);
-
-mysqli_query($conn, "SET NAMES 'UTF8'")
+include './php/connection/session-start.php';
+include './php/connection/db.php';
 ?>
 
 <?php // Login
@@ -67,28 +56,29 @@ if (isset($_POST['login']) &&
 ?>
 
 <?php // Buy ticket
-if (strpos($_SERVER['PHP_SELF'], 'post') !== false) {
-    if (isset($_SESSION['valid']) &&
-        isset($_POST['show']) &&
-        isset($_POST['seat']) &&
-        $_SESSION['valid']) {
-            foreach ($_POST['seat'] as $i => $seat) {
-                $sql = "INSERT INTO `seats` (`id`, `title`, `login`, `seat`)"
-                    . "VALUES (NULL,'".addslashes($_POST['show'])."','".$_SESSION['login']."','".$seat."')";
+if (isset($_SESSION['valid']) &&
+    isset($_POST['buy']) &&
+    isset($_POST['show']) &&
+    isset($_POST['seat']) &&
+    isset($_POST['show_dt']) &&
+    $_SESSION['valid']) {
+        foreach ($_POST['seat'] as $i => $seat) {
+            $sql = "INSERT INTO `seats` (`id`, `title`, `login`, `seat`, `show_dt`)"
+                . "VALUES (NULL,'".addslashes($_POST['show'])."','".$_SESSION['login']."','".$seat."','".addslashes($_POST['show_dt'])."')";
 
-                mysqli_query($conn, $sql);
-            }
+            mysqli_query($conn, $sql);
+        }
 
-            header('Refresh: 0; URL="../../index.php"');
-    } elseif (!isset($_SESSION['valid']) || (isset($_SESSION['valid']) && !$_SESSION['valid'])) {
-        $_SESSION['msg'] = 'Żeby móc kupić bilet, musisz się najpierw zalogować!';
+        header('Refresh: 0; URL="'.dirname($_SERVER['PHP_SELF']).'"');
+} elseif (isset($_POST['buy']) && !isset($_SESSION['valid']) || (isset($_SESSION['valid']) && !$_SESSION['valid'])) {
+    $_SESSION['msg'] = 'Żeby móc kupić bilet, musisz się najpierw zalogować!';
+    print_r($_SERVER);
 
-        header('Refresh: 0; URL="'.$_SERVER['HTTP_REFERER'].'"');
-    } else {
-        echo '<h1>Ups, coś poszło nie tak!</h1>';
-        echo '<h2>Spróbuj ponownie</h2>';
+    header('Refresh: 5; URL="'.$_SERVER['HTTP_REFERER'].'"');
+} elseif (isset($_POST['buy'])) {
+    echo '<h1>Ups, coś poszło nie tak!</h1>';
+    echo '<h2>Spróbuj ponownie</h2>';
 
-        header('Refresh: 2; URL="'.str_replace('php/middleware/post', 'index', $_SERVER['PHP_SELF']).'"');
-    }
+    header('Refresh: 2; URL="'.dirname($_SERVER['PHP_SELF']).'"');
 }
 ?>
