@@ -70,11 +70,9 @@ if (isset($_SESSION['valid']) &&
         }
 
         header('Refresh: 0; URL="'.dirname($_SERVER['PHP_SELF']).'"');
-} elseif (isset($_POST['buy']) && !isset($_SESSION['valid']) || (isset($_SESSION['valid']) && !$_SESSION['valid'])) {
+} elseif (isset($_POST['buy']) && (!isset($_SESSION['valid']) || !$_SESSION['valid'])) {
+    header('Refresh: 0; URL="'.$_SERVER['HTTP_REFERER'].'"');
     $_SESSION['msg'] = 'Żeby móc kupić bilet, musisz się najpierw zalogować!';
-    print_r($_SERVER);
-
-    header('Refresh: 5; URL="'.$_SERVER['HTTP_REFERER'].'"');
 } elseif (isset($_POST['buy'])) {
     echo '<h1>Ups, coś poszło nie tak!</h1>';
     echo '<h2>Spróbuj ponownie</h2>';

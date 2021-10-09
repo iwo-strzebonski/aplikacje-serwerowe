@@ -3,5 +3,5 @@
     session_destroy();
 
     echo 'Użytkownik został wylogowany';
-    header('Refresh: 0; URL="../index.php"');
+    header('Refresh: 0; URL="'.$_SERVER['HTTP_REFERER'].'"');
 ?>

@@ -1,6 +1,6 @@
 <h3>Wybierz miejsce:</h3>
 
-<?php include './php/form-redirect.php' ?>
+<?php include './php/middleware/form-action.php' ?>
 
 <form role='form' method='POST' action='<?= htmlspecialchars($href) ?>' >
     <?php

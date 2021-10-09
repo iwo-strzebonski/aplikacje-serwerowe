@@ -5,7 +5,6 @@
         echo 'Nieprawidłowa nazwa użytkownika i/lub hasło';
     } elseif (isset($_SESSION['msg'])) {
         echo $_SESSION['msg'];
-        unset($_SESSION['msg']);
     } else {
         echo '';
     }
@@ -15,7 +14,7 @@
 
     <img src='./img/cancel.svg' class='close' />
 
-    <?php include './php/form-redirect.php' ?>
+    <?php include './php/middleware/form-action.php' ?>
 
     <form role='form' method='POST' action='<?= htmlspecialchars($href) ?>' >
         <?php include './html/login-form.html'; ?>
